@@ -11,7 +11,7 @@
 # Author:      Alexander Skwar <ASkwar@email-server.info>                     
 #                                                                             
 # Created:     2003/12/03                                                     
-# RCS-ID:      $Id: MakeDist.py,v 1.1 2003/03/17 15:18:03 askwar Exp $        
+# RCS-ID:      $Id: MakeDist.py,v 1.2 2003/03/17 17:04:22 askwar Exp $        
 # Copyright:   (c) 2003                                                       
 # Licence:     GPL                                                            
 #-----------------------------------------------------------------------------
@@ -23,7 +23,7 @@ rk = {
     # Name of the rk archiver executable in 'path'
     'executable':   'rk.exe',
     # Parameters used for calling rk.exe
-    'params':       r'-r -mx -SFX -S%(path)s\win32.sfx'
+    'params':       r'-r -mx3 -I5 -SFX -S%(path)s\win32.sfx'
 }
 
 # ------------------> Nothing user-configurable below here! <------------------ 
@@ -35,11 +35,21 @@ modules ={'setup': [0,
 
 import setup
 import os
+import os.path
+opj = os.path.join
+from glob import glob
 import sys
 from __version__ import *
 
 # Insert path into params, so that the SFX stub can be found
 rk['params'] = rk['params'] % rk
+
+
+def uniques(list): # requires that elements of list be hashable!
+    """Unique the elements of the list."""
+    d = {}
+    for x in list: d[x] = None
+    return d.keys()
 
 def UpdateVersion():
     """ Read the setup.cfg file and replace the version for
@@ -125,7 +135,11 @@ def MakeSRC():
         os.makedirs(basedir)
     
     # Copy source files to source distribution directory
+    new_files = []
     for file in files:
+        new_files += glob(file)
+    new_files = uniques(new_files)
+    for file in new_files:
         dirname = os.path.split(file)[0]
         destdir = os.path.join(basedir, dirname)
         if dirname != '' and not os.path.isdir(destdir):
@@ -204,6 +218,7 @@ def main():
         # Create Windows EXE with py2exe
         MakeEXE()
         # Create SFX with rk
+        os.chdir('..')
         upload_files.append(MakeRK())
         # Create Source distribution
         upload_files += MakeSRC()
@@ -221,5 +236,6 @@ if __name__ == '__main__':
         sys.exit(1)
         
     main()
+
 
 
