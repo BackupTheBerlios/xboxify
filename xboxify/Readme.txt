@@ -1,4 +1,4 @@
-RCS-ID:      $Id: Readme.txt,v 1.2 2003/03/30 15:07:36 askwar Exp $
+RCS-ID:      $Id: Readme.txt,v 1.3 2003/03/30 15:08:59 askwar Exp $
 
 XboxIfy allows to easily change (local) filenames in such a way,
 that they can be easily transferred to Xbox.
@@ -95,4 +95,3 @@ License:
   file COPYING.txt for the full license information.
 
 
-  
