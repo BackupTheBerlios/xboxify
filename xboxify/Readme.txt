@@ -1,4 +1,4 @@
-RCS-ID:      $Id: Readme.txt,v 1.3 2003/03/30 15:08:59 askwar Exp $
+$Id: Readme.txt,v 1.4 2003/03/30 15:10:28 askwar Exp $
 
 XboxIfy allows to easily change (local) filenames in such a way,
 that they can be easily transferred to Xbox.
