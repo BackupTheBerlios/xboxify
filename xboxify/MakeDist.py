@@ -11,15 +11,29 @@
 # Author:      Alexander Skwar <ASkwar@email-server.info>                     
 #                                                                             
 # Created:     2003/12/03                                                     
-# RCS-ID:      $Id: MakeDist.py,v 1.1 2003/03/12 20:14:10 askwar Exp $                                              
+# RCS-ID:      $Id: MakeDist.py,v 1.2 2003/03/16 15:48:02 askwar Exp $                                              
 # Copyright:   (c) 2003                                                       
 # Licence:     GPL                                                            
 #-----------------------------------------------------------------------------
 
-# Name of the application
-name    = 'XboxIfy'
+import glob
+
 # Version of the application
-version = '1.0'
+version 	= '1.0'
+# Name of the application
+name    	= 'XboxIfy'
+# Description of the program
+description	= 'Rename files in such a way, that they can be transferred to Xbox'
+# Additional data files - used by py2exe
+data_files	= [('.', ((glob.glob('*.gif') + glob.glob('*.ico')) + glob.glob('*.txt')))]
+
+# Author of the program
+author		= 'Alexander Skwar'
+# Author's email
+author_email	= 'XboxIfy@message-center.info'
+
+# Scripts of the program - used by py2exe
+scripts		= ['XboxIfy.py']
 
 # Define path and options for rk archiver
 rk = {
@@ -47,7 +61,7 @@ rk['params'] = rk['params'] % rk
 
 def main():
     """Create Windows executable and SFX with rk."""
-    
+
     # Read the setup.cfg file and replace the version for
     # version-productversion and version-fileversion by the version imported
     # from setup.
@@ -55,22 +69,33 @@ def main():
         'version-productversion',
         'version-fileversion'
     ]
+
+    description_strings = [
+    	'version-filedescription'
+    ]
     
     setupcfg = file('setup.cfg')
     lines = setupcfg.readlines()
     setupcfg.close()
     
     new_lines = []
-    gefunden = 0
+    vstr_gefunden = 0
     for line in lines:
-        gefunden = 0
+        vstr_gefunden = 0
         for vstr in version_strings:
             if vstr == line[:len(vstr)]:
                 new_lines.append("%s = %s\n" % (vstr, version))
-                gefunden = 1
-        if not gefunden:
-            new_lines.append(line)
-    
+                vstr_gefunden = 1
+	
+	desc_gefunden = 0
+	for desc in description_strings:
+	    if desc == line[:len(desc)]:
+                new_lines.append("%s = %s\n" % (desc, description))
+                desc_gefunden = 1
+	
+	if not desc_gefunden and not vstr_gefunden:
+	    new_lines.append(line)
+	
     # version has been replaced in setup.cfg
     # Write it back
     setupcfg = file('setup.cfg', 'w')
@@ -91,20 +116,18 @@ def main():
         os.system(cmd)
         
         # This should have created a subdirectory with the name of the 
-        # application under the "dist" directory.
+        # first script under the "dist" directory.
         # Change to this directory before calling rk
-        os.chdir(os.path.join('dist', name))
+        os.chdir(os.path.join('dist', os.path.splitext(scripts[0])[0]))
         
         # Call rk
-        cmd = "%s %s ..\%s-%s.exe *" % (os.path.join(rk['path'], rk['executable']), rk['params'], name, version)
+        cmd = '%s %s "..\%s-%s.exe" *' % (os.path.join(rk['path'], rk['executable']), rk['params'], name.replace(' ', "_"), version)
         print "Running: " + cmd + "\n"
         os.system(cmd)
         
     finally:
         # Change back to the old working directory
-        os.chdir(old_cwd)
-        
-    pass
+        os.chdir(old_cwd) 
 
 if __name__ == '__main__':
     if not os.name in ('nt', 'dos'):
