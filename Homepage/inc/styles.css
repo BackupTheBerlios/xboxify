@@ -6,7 +6,7 @@
 # Author:      Alexander Skwar <XboxIfy@message-center.info>                  
 #                                                                             
 # Created:     2003/17/03                                                     
-# RCS-ID:      $Id: styles.css,v 1.4 2003/03/17 16:48:56 askwar Exp $         
+# RCS-ID:      $Id: styles.css,v 1.5 2003/03/30 15:50:08 askwar Exp $         
 # Copyright:   (c) 2003                                                       
 # Licence:     GPL                                                            
 #-----------------------------------------------------------------------------
@@ -91,3 +91,4 @@ body {
 .versionInformation {
 	font-size: 75%;
 }
+
