@@ -1,13 +1,8 @@
-import glob
 import os.path
-
-def uniques(list): # requires that elements of list be hashable!
-    d = {}
-    for x in list: d[x] = None
-    return d.keys()
+opj = os.path.join
 
 # Version of the application
-version 	= '1.0'
+version 	= '1.1'
 # Name of the application
 name    	= 'XboxIfy'
 # Short name of the application
@@ -15,8 +10,8 @@ short_name  = 'xboxify'
 # Description of the program
 description	= 'Rename files in such a way, that they can be transferred to Xbox'
 # Additional data files - used by py2exe
-data_files	= [('.', ((glob.glob('*.gif') + glob.glob('*.ico')) + glob.glob('*.txt')))]
-#                   ('locale/de/LC_MESSAGES', glob.glob('locale/de/LC_MESSAGES/*.po'))]
+data_files  = [('Images', [opj('Images', '*.gif'), opj('Images', '*.ico')]),
+                ('.', ['*.txt', '*.lnk'])]
 
 # Author of the program
 author		= 'Alexander Skwar'
@@ -27,14 +22,11 @@ author_email= 'XboxIfy@message-center.info'
 scripts		= ['XboxIfy.py']
 
 # Files which should be in the source distribution
-files = glob.glob('*.py') + glob.glob('setup.*') + glob.glob('*.lnk') +         \
-        glob.glob('*.ico') + glob.glob('*.jpg') + glob.glob('*.xpm') +          \
-        glob.glob('*.png') + glob.glob('*.txt') +                               \
-        glob.glob(os.path.join('Tools-i18n', '*.py')) +                         \
-        ()
-#        glob.glob(os.path.join('locale', '*', 'LC_MESSAGES', '*.po'))
-
-files = uniques(files)
+files = ['*.py', '*.lnk', '*.pyw', '*.txt',
+        opj('DirectoryWalker', '*.py'),
+        opj('Frames', '*.py'),
+        opj('Images', '*.gif'), opj('Images', '*.ico'),
+        opj('Utils', '*.cfg'), opj('Utils', '*.py'), opj('Utils', 'Tools-i18n', '*.py')]
 
 # Should the source distribution files be uploaded?
 # If this is not None, then they'll be uploaded
@@ -47,3 +39,5 @@ upload = {
     'dir': '/incoming',
     'pasv': True
 }
+# Uncomment the following line, to DISABLE FTP upload
+# upload = None
