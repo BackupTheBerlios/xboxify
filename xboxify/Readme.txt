@@ -1,4 +1,3 @@
-$Id: Readme.txt,v 1.4 2003/03/30 15:10:28 askwar Exp $
 
 XboxIfy allows to easily change (local) filenames in such a way,
 that they can be easily transferred to Xbox.
@@ -94,4 +93,7 @@ License:
   This program is released under the GNU Public License v2.  Please see the
   file COPYING.txt for the full license information.
 
+--------------------------------------------------------------------------------
+
+$Id: Readme.txt,v 1.5 2003/03/30 15:11:32 askwar Exp $
 
