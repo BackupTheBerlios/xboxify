@@ -6,7 +6,7 @@
 # Author:      Alexander Skwar <XboxIfy@message-center.info>                  
 #                                                                             
 # Created:     2003/17/03                                                     
-# RCS-ID:      $Id: styles.css,v 1.10 2003/04/18 18:14:21 askwar Exp $         
+# RCS-ID:      $Id: styles.css,v 1.11 2003/04/18 18:14:53 askwar Exp $         
 # Copyright:   (c) 2003                                                       
 # Licence:     GPL                                                            
 #-----------------------------------------------------------------------------
@@ -83,7 +83,7 @@ ul.screenshots li img {
 
 
 body {
-	background-image: url(inc/hintergrund-grafik-blau-gestreift.gif);
+	background-image: url(hintergrund-grafik-blau-gestreift.gif);
         font-size:medium;
         font-family:tahoma, verdana, helvetica, sans-serif;
 }
