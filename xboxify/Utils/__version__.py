@@ -2,7 +2,7 @@ import os.path
 opj = os.path.join
 
 # Version of the application
-version 	= '1.1'
+version 	= '1.2'
 # Name of the application
 name    	= 'XboxIfy'
 # Short name of the application
@@ -41,3 +41,4 @@ upload = {
 }
 # Uncomment the following line, to DISABLE FTP upload
 # upload = None
+

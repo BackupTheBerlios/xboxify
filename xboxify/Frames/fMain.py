@@ -1,3 +1,5 @@
+#Boa:Frame:fMain
+
 #-----------------------------------------------------------------------------
 # Name:        fMain.py                                                       
 # Purpose:     Main frame of XboxIfy containing the class fMain               
@@ -5,12 +7,10 @@
 # Author:      Alexander Skwar <XboxIfy@message-center.info>                  
 #                                                                             
 # Created:     2003/17/03                                                     
-# RCS-ID:      $Id: fMain.py,v 1.1 2003/03/17 15:18:03 askwar Exp $
+# RCS-ID:      $Id: fMain.py,v 1.2 2003/07/10 16:22:42 askwar Exp $
 # Copyright:   (c) 2003                                                       
 # Licence:     GPL                                                            
 #-----------------------------------------------------------------------------
-
-#Boa:Frame:fMain
 
 import string
 import re
@@ -30,12 +30,15 @@ def create(parent):
  wxID_FMAINBTNDELETEROW, wxID_FMAINBTNFOLDERBROWSE, wxID_FMAINBTNSAVECFG, 
  wxID_FMAINBTNSTART, wxID_FMAINCBREMOVE2SPACES, wxID_FMAINCBREMOVESPACESFIRST, 
  wxID_FMAINCBREMOVESTRINPARA, wxID_FMAINCHCHANGECASE, wxID_FMAINGRFUNNYCHARS, 
- wxID_FMAINHTMLDOCUMENTATION, wxID_FMAINNBMAIN, wxID_FMAINPNBFUNNY, 
- wxID_FMAINPNBMAIN, wxID_FMAINSBMAIN, wxID_FMAINSL1, wxID_FMAINSTATICLINE1, 
- wxID_FMAINSTCHANGECASE, wxID_FMAINSTFOLDER, wxID_FMAINSTIFNAMETOOLONG, 
+ wxID_FMAINHTMLDOCUMENTATION, wxID_FMAINNBMAIN, wxID_FMAINPACTION, 
+ wxID_FMAINPNBFUNNY, wxID_FMAINPNBMAIN, wxID_FMAINRBACTION, wxID_FMAINSBMAIN, 
+ wxID_FMAINSL1, wxID_FMAINSTATICLINE1, wxID_FMAINSTCHANGECASE, 
+ wxID_FMAINSTFOLDER, wxID_FMAINSTFTPDIRECTORY, wxID_FMAINSTFTPHOSTNAME, 
+ wxID_FMAINSTFTPPASSWORD, wxID_FMAINSTFTPUSERNAME, wxID_FMAINSTIFNAMETOOLONG, 
  wxID_FMAINSTMAXLENNAMES, wxID_FMAINSTRULES, wxID_FMAINTCFOLDER, 
- wxID_FMAINTCMAXLENNAMES, wxID_FMAINWINRULES, 
-] = map(lambda _init_ctrls: wxNewId(), range(27))
+ wxID_FMAINTCFTPDIRECTORY, wxID_FMAINTCFTPHOSTNAME, wxID_FMAINTCFTPPASSWORD, 
+ wxID_FMAINTCFTPUSERNAME, wxID_FMAINTCMAXLENNAMES, wxID_FMAINWINRULES, 
+] = map(lambda _init_ctrls: wxNewId(), range(37))
 
 class fMain(wxFrame):
     def _init_coll_sbMain_Fields(self, parent):
@@ -63,11 +66,11 @@ class fMain(wxFrame):
     def _init_ctrls(self, prnt):
         # generated method, don't edit
         wxFrame.__init__(self, id=wxID_FMAIN, name='fMain', parent=prnt,
-              pos=wxPoint(847, 431), size=wxSize(340, 391),
+              pos=wxPoint(852, 346), size=wxSize(329, 562),
               style=wxCAPTION | wxSYSTEM_MENU | wxMINIMIZE_BOX | wxTAB_TRAVERSAL,
               title='XboxIfy')
         self._init_utils()
-        self.SetClientSize(wxSize(332, 357))
+        self.SetClientSize(wxSize(321, 528))
         self.Center(wxBOTH)
 
         self.sbMain = wxStatusBar(id=wxID_FMAINSBMAIN, name='sbMain',
@@ -78,14 +81,14 @@ class fMain(wxFrame):
         self.SetStatusBar(self.sbMain)
 
         self.nbMain = wxNotebook(id=wxID_FMAINNBMAIN, name='nbMain',
-              parent=self, pos=wxPoint(0, 0), size=wxSize(332, 337), style=0)
+              parent=self, pos=wxPoint(0, 0), size=wxSize(321, 508), style=0)
 
         self.pnbMain = wxPanel(id=wxID_FMAINPNBMAIN, name='pnbMain',
-              parent=self.nbMain, pos=wxPoint(0, 0), size=wxSize(324, 311),
+              parent=self.nbMain, pos=wxPoint(0, 0), size=wxSize(313, 482),
               style=wxTAB_TRAVERSAL)
 
         self.pnbFunny = wxPanel(id=wxID_FMAINPNBFUNNY, name='pnbFunny',
-              parent=self.nbMain, pos=wxPoint(0, 0), size=wxSize(324, 311),
+              parent=self.nbMain, pos=wxPoint(0, 0), size=wxSize(313, 482),
               style=wxTAB_TRAVERSAL)
 
         self.stFolder = wxStaticText(id=wxID_FMAINSTFOLDER, label='Folder:',
@@ -98,7 +101,7 @@ class fMain(wxFrame):
 
         self.btnFolderBrowse = wxButton(id=wxID_FMAINBTNFOLDERBROWSE,
               label='Browse', name='btnFolderBrowse', parent=self.pnbMain,
-              pos=wxPoint(232, 32), size=wxSize(75, 23), style=0)
+              pos=wxPoint(224, 32), size=wxSize(75, 23), style=0)
         EVT_BUTTON(self.btnFolderBrowse, wxID_FMAINBTNFOLDERBROWSE,
               self.OnBtnfolderbrowseButton)
 
@@ -165,18 +168,18 @@ class fMain(wxFrame):
         self.chChangeCase.SetSelection(0)
 
         self.btnStart = wxButton(id=wxID_FMAINBTNSTART, label='Start',
-              name='btnStart', parent=self.pnbMain, pos=wxPoint(16, 264),
+              name='btnStart', parent=self.pnbMain, pos=wxPoint(8, 448),
               size=wxSize(75, 23), style=0)
         EVT_BUTTON(self.btnStart, wxID_FMAINBTNSTART, self.OnBtnstartButton)
 
         self.btnDefaultCfg = wxButton(id=wxID_FMAINBTNDEFAULTCFG,
               label='Default Config', name='btnDefaultCfg', parent=self.pnbMain,
-              pos=wxPoint(112, 264), size=wxSize(88, 23), style=0)
+              pos=wxPoint(112, 448), size=wxSize(88, 23), style=0)
         EVT_BUTTON(self.btnDefaultCfg, wxID_FMAINBTNDEFAULTCFG,
               self.OnBtndefaultcfgButton)
 
         self.btnSaveCfg = wxButton(id=wxID_FMAINBTNSAVECFG, label='Save Config',
-              name='btnSaveCfg', parent=self.pnbMain, pos=wxPoint(224, 264),
+              name='btnSaveCfg', parent=self.pnbMain, pos=wxPoint(224, 448),
               size=wxSize(75, 23), style=0)
         EVT_BUTTON(self.btnSaveCfg, wxID_FMAINBTNSAVECFG,
               self.OnBtnsavecfgButton)
@@ -205,7 +208,50 @@ class fMain(wxFrame):
 
         self.htmlDocumentation = wxHtmlWindow(id=wxID_FMAINHTMLDOCUMENTATION,
               name='htmlDocumentation', parent=self.nbMain, pos=wxPoint(0, 0),
-              size=wxSize(324, 311))
+              size=wxSize(313, 482))
+
+        self.rbAction = wxRadioBox(choices=['Just Rename', 'FTP Upload'],
+              id=wxID_FMAINRBACTION, label='Action:', majorDimension=1,
+              name='rbAction', parent=self.pnbMain, point=wxPoint(8, 256),
+              size=wxSize(296, 184), style=wxRA_SPECIFY_COLS,
+              validator=wxDefaultValidator)
+        self.rbAction.SetStringSelection('Just Rename')
+
+        self.pAction = wxPanel(id=wxID_FMAINPACTION, name='pAction',
+              parent=self.pnbMain, pos=wxPoint(16, 320), size=wxSize(280, 108),
+              style=wxDOUBLE_BORDER | wxTAB_TRAVERSAL)
+
+        self.stFTPHostname = wxStaticText(id=wxID_FMAINSTFTPHOSTNAME,
+              label='Hostname:', name='stFTPHostname', parent=self.pAction,
+              pos=wxPoint(8, 8), size=wxSize(88, 13), style=0)
+
+        self.stFTPUsername = wxStaticText(id=wxID_FMAINSTFTPUSERNAME,
+              label='Username:', name='stFTPUsername', parent=self.pAction,
+              pos=wxPoint(8, 32), size=wxSize(88, 13), style=0)
+
+        self.stFTPPassword = wxStaticText(id=wxID_FMAINSTFTPPASSWORD,
+              label='Password:', name='stFTPPassword', parent=self.pAction,
+              pos=wxPoint(8, 56), size=wxSize(88, 13), style=0)
+
+        self.stFTPDirectory = wxStaticText(id=wxID_FMAINSTFTPDIRECTORY,
+              label='Directory:', name='stFTPDirectory', parent=self.pAction,
+              pos=wxPoint(8, 80), size=wxSize(88, 13), style=0)
+
+        self.tcFTPHostname = wxTextCtrl(id=wxID_FMAINTCFTPHOSTNAME,
+              name='tcFTPHostname', parent=self.pAction, pos=wxPoint(104, 4),
+              size=wxSize(160, 21), style=0, value='xbox')
+
+        self.tcFTPUsername = wxTextCtrl(id=wxID_FMAINTCFTPUSERNAME,
+              name='tcFTPUsername', parent=self.pAction, pos=wxPoint(104, 28),
+              size=wxSize(160, 21), style=0, value='xbox')
+
+        self.tcFTPPassword = wxTextCtrl(id=wxID_FMAINTCFTPPASSWORD,
+              name='tcFTPPassword', parent=self.pAction, pos=wxPoint(104, 52),
+              size=wxSize(160, 21), style=wxTE_PASSWORD, value='xbox')
+
+        self.tcFTPDirectory = wxTextCtrl(id=wxID_FMAINTCFTPDIRECTORY,
+              name='tcFTPDirectory', parent=self.pAction, pos=wxPoint(104, 76),
+              size=wxSize(160, 21), style=0, value='/F/music')
 
         self._init_coll_nbMain_Pages(self.nbMain)
 
@@ -339,6 +385,15 @@ class fMain(wxFrame):
             delete_chars=delete_chars,
             status_text_prefix='Dirs: '
         )
+
+        print "new_files: %s\n" % `new_files`
+        print "\n\n\n"
+        print "new_dirs: %s\n" % `new_dirs`
+	
+        self.UploadFiles(new_files, new_dirs)
+
+##	self.RenameFiles(new_files)
+##	self.RenameFiles(new_dirs)
         
         timer_end = time.time()
         clock_end = time.clock()
@@ -650,8 +705,11 @@ class fMain(wxFrame):
         return None
 
     def BeautifyNames(self, names, maxNameLen, remove2Spaces, removeParas, removeSpacesFirst, changeCase, translate, regexp, trans_table, delete_chars, status_text_prefix = ''):
-        """Beautify all the names, so that they can be transferred to Xbox.
-        This method RENAMES the file on the HARD DISK!
+        """This method generates a list of 'beautified' file names, so that
+        they can be transferred to Xbox.  It returns a list of tuples, where
+        the first item of the tuple is the source name and the second item
+        is the destination file name.
+        It does NOT rename files on the hard disk.
         Parameters:
             names: List of filenames.  Used as the source when renaming.
             maxNameLen: Maximum number of characters allowed in a filename.
@@ -681,6 +739,7 @@ class fMain(wxFrame):
             removeParas_regexp = re.compile('[\\[({].*[\\])}]')
 
         new_files = []
+        retVal = []
         i = 0
         for num in range(len(names)):
 ##        for file in names:
@@ -837,10 +896,96 @@ class fMain(wxFrame):
                     # Eventually, we'll find a free number (or get an overflow).
                 
                 new_files.append(abs_new_name)
-                os.rename(file, abs_new_name)
+                retVal.append((file, abs_new_name, ))
+                # os.rename(file, abs_new_name)
 
-        return new_files
+	return retVal
+##        return new_files
+   
+    def RenameFiles(self, file_list):
+        """Loop thru the file list and rename the files."""
+
+        for file in file_list:
+            source = file[0]
+            dest = file[1]
+
+            print "--------------------\nSource:\t%s\nDest:\t%s\n" % (source, dest)
+            # os.rename(source, dest)
+	    
+        pass
+	
+    def UploadFiles(self, file_list, dir_list):
+        """Upload the files to the Xbox.
+        The method takes 2 parameters:
+            file_list -> List of tuple of file names, as returned by BeautifyNames
+            dir_list -> List of tuple of directory names, as returned by BeautifyNames
+        """
+
+        # file_list ist eine Liste von Tuplen der umzubennenden Dateinamen:
+        # [('C:\Böses Verzeichnis\Böse Datei', 'C:\Böses Verzeichnis\Bse Datei'), (....)]
+        # dir_list ist ein ebensolches Tuple mit Verzeichnisnamen:
+        # [('C:\Böses Verzeichnis', 'C:\Bses Verzeichnis'), (....)]
+        # Das Problem ist nun, das für Upload zuerst die Verzeichnisse mit den
+        # sicheren Namen angelegt werden müssen und dann die Dateien mit den
+        # sicheren Dateinamen in diese Verzeichnisse geuploadet werden müssen.
+        # Problematisch ist, das es nicht direkt eine Zuordnung von 
+        # Guten Verzeichnisnamen zu Guten Dateinamen gibt.  Oder anders gesagt:
+        # Es würde versucht werden, eine Datei mit einem Guten Dateinamen in ein
+        # Verzeichnis mit einem Bösen Verzeichnisnamen zu uploaden.
+        # Indirekt gibt es allerdings eine Zuordnung, da die Bösen 
+        # Verzeichnisnamen in der Verzeichnisliste (dir_list) identisch sind
+        # mit dem Pfad zu den guten Dateinamen in der file_list.
+        # Dh. beim *Uploaden* der Dateien, muß der Verzeichnisname aus der
+        # Pfadangabe extrahiert werden und in der Verzeichnisliste dir_list nach
+        # der "Übersetzung" gesucht werden.
+        # Ein weiteres Problem ist, das die Dateinamen sich auf ein lokales
+        # Dateisystem beziehen.  Die Sachen sollen aber per FTP gemacht werden.
+        # Dh. es soll nicht ein Verzeichnis "C:\Xbox Transfer\POP"
+        # angelegt werden, sondern es soll auf der Xbox unter "/F/music" das
+        # Verzeichnis "POP" erzeugt werden.
+        # Es muß also von allen Pfadangaben ein bestimmter Präfix abgezogen
+        # werden.  Des weiteren muß (sofern wir in Windows sind - oder so)
+        # das \ durch / ersetzt werden.  Und zuletzt muß als neuer Präfix
+        # das Zielverzeichnis auf der Xbox gesetzt werden (z.B. /F/music).
+        
+        # Quellverzeichnisname auf dem lokalen Dateisystem
+        source_dir = self.tcFolder.GetValue()
+        # Länge des Verzeichnisnamen
+        source_dir_len = len(source_dir)
+        # Zielverzeichnisname auf dem FTP Server
+        ftp_dest_dir = self.tcFTPDirectory.GetValue()
+        	   
+        # Erzeuge Verzeichnisse
+        dir_dict = {source_dir: ftp_dest_dir}
+        trans_table = string.maketrans('\\', '/')
+        for dir in dir_list:
+            # Verzeichnis Erzeugen
+            dirname = dir[1]
+            dir_dict[dir[0]] = ftp_dest_dir + dirname[source_dir_len:].translate(trans_table)
+            
+        for tempdir in dir_dict:
+            print '%s -> %s' % (tempdir, dir_dict[tempdir])
     
+        print "\n\nDateien:\n"
+        	    
+        # Uploade Dateien
+        for file in file_list:
+            source = file[0]
+            print "Source: %s" % source
+            dest = file[1]
+            print "Dest: %s" % dest
+            splitted = os.path.split(dest)
+            file_name = splitted[1]
+            bad_dir = splitted[0]
+            print "File Name: %s\nBad Dir: %s" % (file_name, bad_dir)
+            good_dir = dir_dict[bad_dir]
+            
+            good_name = good_dir + '/' + file_name
+            
+            print "%s -> %s" % (source, good_name)
+        	    
+        pass
+   
     def multiple_replace(self, dict, text, regex):
         """Replace all occurances of the keys of the dict by their values in text.
         It expects to be given a pre-compiled regular expression in the parameter regex."""
