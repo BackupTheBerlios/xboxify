@@ -13,6 +13,7 @@ modules ={'DirectoryWalker': [0, 'Directory Walker class', 'DirectoryWalker.py']
               'Create Windows executable and SFX for distribution',
               'MakeDist.py'],
  'Readme': [0, 'Description of application', 'Readme.txt'],
+ '__version__': [0, 'Version Information', '__version__.py'],
  'fMain': [1, 'Main frame of Application', 'fMain.py'],
  'setup': [0, 'Setup', 'setup.py']}
 
