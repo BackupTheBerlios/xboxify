@@ -11,7 +11,7 @@
 # Author:      Alexander Skwar <ASkwar@email-server.info>                     
 #                                                                             
 # Created:     2003/12/03                                                     
-# RCS-ID:      $Id: MakeDist.py,v 1.3 2003/03/16 16:21:00 askwar Exp $        
+# RCS-ID:      $Id: MakeDist.py,v 1.1 2003/03/17 15:18:03 askwar Exp $        
 # Copyright:   (c) 2003                                                       
 # Licence:     GPL                                                            
 #-----------------------------------------------------------------------------
